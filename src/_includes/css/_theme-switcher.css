@@ -38,8 +38,15 @@
 }
 
 .theme-switcher-toggle:hover,
-.theme-switcher-toggle:focus {
+.theme-switcher-toggle:focus-visible {
   color: var(--link);
+}
+
+/* Without this the icon's line box runs taller than its font-size and the
+   button grows past the 36px the glyph actually occupies. */
+.theme-switcher-toggle .material-icons {
+  display: block;
+  line-height: 1;
 }
 
 /* Material Icons sizing convention, as used on yolo-11ty */

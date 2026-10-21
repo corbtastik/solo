@@ -141,6 +141,20 @@ clickable `<div>`, so it is keyboard-reachable; and it highlights on
 `:focus-visible` rather than `:focus`, so it does not stay inverted after a
 mouse click.
 
+## Site logo
+
+`site.logo` in `src/_data/site.json` puts a round image at the right edge of
+the header, level with the title; `site.logo_alt` is its alt text. Leave `logo`
+out and the header is exactly Solo's.
+
+The logo is sized to the `h1`'s own font-size — 2.5rem, then 3rem at the 30rem
+breakpoint — and `h1` has `line-height: 1`, so the circle is precisely as tall
+as the title and nothing below it moves. Verified against the original: the
+only pixels that differ in the whole header region are the logo's own.
+
+Below 735px the column reaches the viewport edge, where the logo would land
+under the fixed theme controls, so the header steps in by their footprint.
+
 ## Images
 
 Markdown images need nothing: Solo's own `.container img` centers them and caps

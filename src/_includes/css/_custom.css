@@ -38,3 +38,60 @@
 .footnote-backref {
   text-decoration: none;
 }
+
+/* --------------------------------------------------------------------------
+   Site header — the title with a round logo pushed to the right edge of the
+   column. The logo is sized to the h1's own font-size, and h1 has
+   `line-height: 1`, so the circle is exactly as tall as the title and Solo's
+   vertical rhythm is unchanged.
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  /* The margin h1 used to carry, moved up so the flex row owns it. */
+  margin-bottom: 1rem;
+}
+
+.site-header h1 {
+  margin-bottom: 0;
+}
+
+/* Scoped under .site-header so it outranks Solo's `.container img`, which
+   centers every image with `margin: 0 auto`. */
+.site-header .site-logo {
+  flex: none;
+  width: 2.5rem;  /* matches h1's font-size below 30rem */
+  height: 2.5rem;
+  margin: 0 0 0 auto;  /* auto left margin pushes it to the right edge */
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Once the column reaches the viewport edge the logo would collide with the
+   fixed theme controls, so step it in by their footprint. */
+@media (max-width: 735px) {
+  .site-header {
+    padding-right: 44px;
+  }
+}
+
+@media (min-width: 30rem) {
+  .site-header {
+    margin-bottom: 3rem;
+  }
+
+  .site-header .site-logo {
+    width: 3rem;  /* matches h1's font-size at and above 30rem */
+    height: 3rem;
+  }
+}
+
+/* A table cell holding a long unbroken token (a CSS custom property name,
+   a URL) pushed the whole page sideways on very narrow screens. Solo's own
+   demo never had a wide enough table to hit this. No visual effect until a
+   cell actually has nowhere left to break. */
+td,
+th {
+  overflow-wrap: anywhere;
+}

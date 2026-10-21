@@ -12,7 +12,12 @@
 </head>
 <body>
   <div class="container">
-    <h1><a href="./">{{ site.tag_text }}</a></h1>
+    <header class="site-header">
+      <h1><a href="./">{{ site.tag_text }}</a></h1>
+      {%- if site.logo %}
+      <img class="site-logo" src="{{ site.logo }}" alt="{{ site.logo_alt }}" width="120" height="120">
+      {%- endif %}
+    </header>
     {{ content | safe }}
   </div>
 {% if site.theme.switcher %}{% include "theme-switcher.njk" %}{% endif %}
