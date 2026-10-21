@@ -18,6 +18,12 @@
   z-index: 10;
   font-size: 0.8rem;
   line-height: 1.5;
+  /* Stacked with a gap, the way yolo-11ty spaces its sticky controls. The
+     menu is absolutely positioned, so it is not a flex item. */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
 }
 
 .theme-switcher[hidden] {
