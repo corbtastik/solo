@@ -1,3 +1,4 @@
+import { load as loadYaml } from "js-yaml";
 import markdownItAnchor from "markdown-it-anchor";
 import markdownItDeflist from "markdown-it-deflist";
 import markdownItFootnote from "markdown-it-footnote";
@@ -68,6 +69,11 @@ const escapeHtml = (str) =>
     .replace(/"/g, "&quot;");
 
 export default function (eleventyConfig) {
+  /* Gallery data is YAML, the same format yolo-11ty uses, so its `ig-*.yml`
+     files can be copied across unchanged. Eleventy reads .json and .js on its
+     own but not .yml. */
+  eleventyConfig.addDataExtension("yml,yaml", (contents) => loadYaml(contents));
+
   /* ---------------------------------------------------------------- *
    * Markdown: kramdown-compatible output
    * ---------------------------------------------------------------- */
@@ -127,6 +133,67 @@ export default function (eleventyConfig) {
         `</div></div>\n`
       );
     };
+  });
+
+
+  /* ---------------------------------------------------------------- *
+   * Image grid — a port of yolo-11ty's `imageGrid` shortcode.
+   * ---------------------------------------------------------------- */
+
+  eleventyConfig.addShortcode("imageGrid", function (name, columns) {
+    name = name || "ig-images";
+    columns = columns || 4;
+    const images = (this.ctx && this.ctx[name]) || [];
+    if (!images.length) return "";
+
+    /* ceil, not floor: with floor, a remainder that does not divide evenly
+       across the columns drops the trailing images from the grid while
+       leaving them in the expanded view, putting data-index out of sync. */
+    const perCol = Math.max(1, Math.ceil(images.length / columns));
+    const attrs = (index, action) =>
+      `data-gallery="${name}" data-gallery-type="ig" data-action="${action}"` +
+      (action === "open" ? ` data-index="${index}"` : "");
+
+    /* The wrapper encloses ONLY the thumbnails. open() hides it to reveal the
+       expanded view, so the expanded view has to sit outside it. */
+    let html = `<div id="ig-${name}"><div class="columns is-mobile">`;
+    for (let c = 0; c < columns; c++) {
+      html += `<div class="column">`;
+      for (let r = 0; r < perCol; r++) {
+        const index = c * perCol + r;
+        const image = images[index];
+        if (!image) continue;
+        html +=
+          `<img class="image square" ${attrs(index, "open")}` +
+          ` tabindex="0" role="button"` +
+          ` alt="${escapeHtml(image.description || "")}"` +
+          ` src="${escapeHtml(image.src)}" loading="lazy">`;
+      }
+      html += `</div>`;
+    }
+    html += `</div></div>`;
+
+    html +=
+      `<div id="ig-target-${name}" class="no-display">` +
+      `<div class="ig-modal-content"><div class="ig-slides">`;
+    images.forEach((image, i) => {
+      html +=
+        `<img id="${name}-image-${i}" class="image square" ${attrs(i, "close")}` +
+        ` tabindex="0" role="button"` +
+        ` alt="${escapeHtml(image.description || "")}"` +
+        /* Same URL as the thumbnail, so by the time this is revealed the
+           browser already has it; lazy keeps it off the initial load. */
+        ` src="${escapeHtml(image.src)}" loading="lazy">` +
+        `<div id="${name}-caption-${i}" class="ig-caption">` +
+        `<p>${escapeHtml(image.description || "")}</p></div>`;
+    });
+    html +=
+      `</div>` +
+      `<a class="ig-nav ig-prev" ${attrs(0, "prev")} tabindex="0" role="button" aria-label="Previous image">&#10094;</a>` +
+      `<a class="ig-nav ig-next" ${attrs(0, "next")} tabindex="0" role="button" aria-label="Next image">&#10095;</a>` +
+      `</div></div>`;
+
+    return html;
   });
 
   /* ---------------------------------------------------------------- *

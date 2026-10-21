@@ -29,6 +29,7 @@ Solo's layout, type and spacing are untouched. Everything below is new:
 * **A site logo**, round, at the right edge of the header.
 * **More markdown** — definition lists, footnotes, task lists and indented code
   blocks, none of which markdown-it handles on its own.
+* **An image grid** — click a thumbnail to enlarge it in place.
 * **A back-to-top control** in the bottom right corner.
 
 ## Usage
@@ -374,6 +375,37 @@ Classes: `is-112-by-63` through `is-640-by-360`.
 Classes: `is-63-by-112` through `is-360-by-640`.
 
 <img class="is-225-by-400" src="https://storage.googleapis.com/corbs-foto/flowerhood/bluebonnet.jpg" alt="Bluebonnet" loading="lazy">
+
+## Image grid
+
+Shows images inline. Click one to enlarge, click again to shrink. Arrows and
+the left/right keys move through the set; Escape closes it. Ported from
+[yolo-11ty](https://yolo-11ty.web.app/#image-grid), down to the data format —
+its `ig-*.yml` files drop straight in.
+
+1. Add images to `src/_data/ig-images.yml`.
+2. Use the `imageGrid` shortcode.
+
+{% raw %}
+```html Shortcode
+{% imageGrid %}
+```
+{% endraw %}
+
+{% imageGrid %}
+
+### Custom file and column count
+
+Any file in `src/_data/` with an `ig-` prefix works. The second argument sets
+the number of columns:
+
+{% raw %}
+```html Custom data
+{% imageGrid "ig-pets", 2 %}
+```
+{% endraw %}
+
+{% imageGrid "ig-pets", 2 %}
 
 ## Author
 

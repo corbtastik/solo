@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.7",
+    "js-yaml": "^5.5.0",
     "markdown-it-anchor": "^10.0.0",
     "markdown-it-deflist": "^4.0.0",
     "markdown-it-footnote": "^4.0.0",

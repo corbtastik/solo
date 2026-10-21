@@ -25,6 +25,7 @@ src/
 ├── _data/
 │   ├── site.json             title, description, theme settings (≈ _config.yml)
 │   ├── solo.js               the Solo palette, exact — compiled into main.css
+│   ├── ig-*.yml              image grid galleries (yolo-11ty format)
 │   └── palettes.json         the 67 yolo-11ty palettes, 12 colors per mode
 ├── _includes/
 │   ├── layouts/default.njk   ≈ _layouts/default.html
@@ -34,6 +35,7 @@ src/
 │   ├── theme-switcher.njk    the two controls and their menu
 │   ├── code-copy.njk         copy-to-clipboard for code blocks
 │   ├── table-sort.njk        click-a-header-to-sort for tables
+│   ├── image-grid.njk        click-to-enlarge for image grids
 │   └── css/
 │       ├── _normalize.css    normalize.css v2.1.3, verbatim from Solo
 │       ├── _solo.css         line-for-line port of _sass/_solo.scss
@@ -143,6 +145,31 @@ Two small departures from yolo-11ty: the bar is a real `<button>` rather than a
 clickable `<div>`, so it is keyboard-reachable; and it highlights on
 `:focus-visible` rather than `:focus`, so it does not stay inverted after a
 mouse click.
+
+## Image grid
+
+A port of [yolo-11ty's](https://yolo-11ty.web.app/#image-grid), class names and
+data format included, so its `ig-*.yml` files can be copied across unchanged.
+
+```njk
+{% imageGrid %}                  {# src/_data/ig-images.yml, 4 columns #}
+{% imageGrid "ig-pets", 2 %}     {# any ig-*.yml, 2 columns #}
+```
+
+Each entry is `name`, `src` and `description`. Thumbnails fill column-major —
+with 12 images across 4 columns, the first column holds 1-3, not 1, 5, 9.
+Clicking one hides the grid and shows that image full width in its place, with
+its caption and prev/next arrows; clicking the image puts the grid back. Left
+and right arrow keys step through, Escape closes, and both wrap at the ends.
+Several grids on a page stay independent.
+
+Reading the YAML needs `js-yaml`: Eleventy handles `.json` and `.js` data files
+on its own but not `.yml`, so the config registers a data extension for it.
+
+Two things added on top of yolo-11ty's version: thumbnails and arrows carry
+`tabindex`/`role` so they are reachable by keyboard, and the full-size images
+are lazy — they share a URL with the thumbnail, so by the time one is revealed
+the browser already has it.
 
 ## Back to top
 

@@ -1,0 +1,119 @@
+{#
+  Image grid behavior, ported from yolo-11ty's ImageGrid: clicking a
+  thumbnail hides the grid and reveals one large image in its place; clicking
+  that image puts the grid back. Arrows and the keyboard cycle, wrapping at
+  both ends.
+#}
+  <script>
+  (function () {
+    "use strict";
+
+    function wrapIndex(index, total) {
+      if (index >= total) return 0;
+      if (index < 0) return total - 1;
+      return index;
+    }
+
+    function ImageGrid(name) {
+      this.name = name;
+      this.isOpen = false;
+      this.currentIndex = 0;
+      this.totalItems = 0;
+    }
+
+    ImageGrid.prototype = {
+      getGrid: function () {
+        return document.getElementById("ig-" + this.name);
+      },
+      getTarget: function () {
+        return document.getElementById("ig-target-" + this.name);
+      },
+      getImages: function () {
+        return this.getTarget().getElementsByTagName("img");
+      },
+      getCaption: function (i) {
+        return document.getElementById(this.name + "-caption-" + i);
+      },
+
+      open: function (index) {
+        this.getGrid().style.display = "none";
+        var target = this.getTarget();
+        this.totalItems = this.getImages().length;
+        this.currentIndex = index;
+        this._showOnly(index);
+        target.classList.remove("no-display");
+        target.style.display = "block";
+        this.isOpen = true;
+      },
+
+      close: function () {
+        var target = this.getTarget();
+        this._showOnly(-1);
+        target.style.display = "none";
+        target.classList.add("no-display");
+        this.getGrid().style.display = "block";
+        this.isOpen = false;
+      },
+
+      next: function () { this.show(this.currentIndex + 1); },
+      prev: function () { this.show(this.currentIndex - 1); },
+
+      show: function (index) {
+        this.currentIndex = wrapIndex(index, this.totalItems);
+        this._showOnly(this.currentIndex);
+      },
+
+      _showOnly: function (index) {
+        var images = this.getImages();
+        for (var i = 0; i < images.length; i++) {
+          var show = i === index;
+          images[i].style.display = show ? "block" : "none";
+          var caption = this.getCaption(i);
+          if (caption) caption.style.display = show ? "block" : "none";
+        }
+      }
+    };
+
+    var galleries = {};
+    function getGallery(name) {
+      if (!galleries[name]) galleries[name] = new ImageGrid(name);
+      return galleries[name];
+    }
+
+    function run(target) {
+      var data = target.dataset;
+      if (!data.gallery || !data.action) return false;
+      var gallery = getGallery(data.gallery);
+      if (data.action === "open") gallery.open(parseInt(data.index, 10) || 0);
+      else if (data.action === "close") gallery.close();
+      else if (data.action === "next") gallery.next();
+      else if (data.action === "prev") gallery.prev();
+      return true;
+    }
+
+    document.addEventListener("click", function (event) {
+      var target = event.target.closest("[data-gallery]");
+      if (target) run(target);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      /* Enter or Space on a focused thumbnail or arrow. */
+      if (event.key === "Enter" || event.key === " ") {
+        var focused = document.activeElement;
+        if (focused && focused.closest && focused.closest("[data-gallery]")) {
+          if (run(focused.closest("[data-gallery]"))) event.preventDefault();
+          return;
+        }
+      }
+      for (var name in galleries) {
+        var gallery = galleries[name];
+        if (gallery.isOpen) {
+          if (event.key === "ArrowLeft") { gallery.prev(); event.preventDefault(); }
+          else if (event.key === "ArrowRight") { gallery.next(); event.preventDefault(); }
+          else if (event.key === "Escape") { gallery.close(); event.preventDefault(); }
+          break;
+        }
+      }
+    });
+  })();
+  </script>
