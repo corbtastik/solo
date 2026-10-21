@@ -141,6 +141,25 @@ clickable `<div>`, so it is keyboard-reachable; and it highlights on
 `:focus-visible` rather than `:focus`, so it does not stay inverted after a
 mouse click.
 
+## Tables
+
+Styled after [yolo-11ty](https://yolo-11ty.web.app/#tables) rather than Solo's
+grey box: the header row is filled with the theme's accent and every internal
+rule is drawn in it. The accent is the `--code-header-*` pair, so a table's
+header bar matches the bar above a code block — the same relationship yolo-11ty
+has, where both come from its `--secondary-color`.
+
+Rounded corners need `border-collapse: separate` (the collapsed model ignores
+`border-radius`), with `overflow: hidden` to clip the header fill to the curve.
+
+**Click a column header to sort, click again to reverse**, as on yolo-11ty.
+Headers carry `tabindex` and `aria-sort`, so the keyboard and screen readers
+get it too. A column sorts numerically only when every value is wholly a
+number — `755` sorts as 755, while `v2 beta` and `1,000` fall back to text
+rather than silently becoming 2 and 1.
+
+No markup needed: plain markdown tables pick all of this up.
+
 ## Site logo
 
 `site.logo` in `src/_data/site.json` puts a round image at the right edge of

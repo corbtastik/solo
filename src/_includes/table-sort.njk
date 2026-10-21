@@ -1,0 +1,75 @@
+{#
+  Click a column header to sort, click again to reverse — the same behavior
+  yolo-11ty's tables have. Numeric columns sort numerically, everything else
+  by locale. Headers are focusable so the keyboard can do it too.
+#}
+  <script>
+  (function () {
+    "use strict";
+
+    function cellText(row, index) {
+      var cells = row.querySelectorAll("td");
+      return cells[index] ? cells[index].textContent.trim() : "";
+    }
+
+    function sortBy(table, header, headers, index) {
+      var body = table.querySelector("tbody") || table;
+      var rows = Array.prototype.filter.call(
+        body.querySelectorAll("tr"),
+        function (row) { return row.querySelector("td"); }
+      );
+
+      var ascending = header.getAttribute("aria-sort") !== "ascending";
+      for (var i = 0; i < headers.length; i++) {
+        headers[i].setAttribute("aria-sort", "none");
+      }
+      header.setAttribute("aria-sort", ascending ? "ascending" : "descending");
+
+      rows.sort(function (a, b) {
+        var left = cellText(a, index);
+        var right = cellText(b, index);
+        var leftNum = parseFloat(left);
+        var rightNum = parseFloat(right);
+        /* Numeric only when both sides really are numbers, so "755" sorts as
+           755 but "v2 beta" does not become 2. */
+        if (!isNaN(leftNum) && !isNaN(rightNum) &&
+            String(leftNum) === left.replace(/^\+/, "") &&
+            String(rightNum) === right.replace(/^\+/, "")) {
+          return ascending ? leftNum - rightNum : rightNum - leftNum;
+        }
+        return ascending
+          ? left.localeCompare(right)
+          : right.localeCompare(left);
+      });
+
+      for (var r = 0; r < rows.length; r++) body.appendChild(rows[r]);
+    }
+
+    var tables = document.querySelectorAll(".container table");
+    for (var t = 0; t < tables.length; t++) {
+      (function (table) {
+        var headers = table.querySelectorAll("th");
+        if (!headers.length || !table.querySelector("td")) return;
+
+        for (var h = 0; h < headers.length; h++) {
+          (function (header, index) {
+            header.setAttribute("data-sortable", "");
+            header.setAttribute("aria-sort", "none");
+            header.setAttribute("tabindex", "0");
+            header.setAttribute("title", "Sort by this column");
+
+            header.addEventListener("click", function () {
+              sortBy(table, header, headers, index);
+            });
+            header.addEventListener("keydown", function (event) {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                sortBy(table, header, headers, index);
+              }
+            });
+          })(headers[h], h);
+        }
+      })(tables[t]);
+    }
+  })();
+  </script>

@@ -231,19 +231,36 @@ An indented block — four spaces — works the same way:
 
 ### Tables
 
-| Element | Token | Shows up in |
-|---------|-------|-------------|
-| Body text | `--text` | Paragraphs, lists |
-| Links | `--link` | Anchors |
-| Rules | `--rule` | `<hr>`, table and blockquote borders |
-| Code | `--code-bg` | `<pre>` and `<code>` |
+Styled after [yolo-11ty](https://yolo-11ty.web.app/#tables): the header row is
+filled with the theme's accent — the same one the code block header uses — and
+every internal rule is drawn in it. **Click any column header to sort. Click
+again to reverse.**
+
+| Player | BA | HR |
+|--------|----|----|
+| Hank Aaron | .305 | 755 |
+| Babe Ruth | .342 | 714 |
+| Mookie Wilson | .274 | 67 |
+
+Numeric columns sort as numbers, so `67` lands below `714` rather than between
+`.305` and `714`.
 
 Columns take alignment from the separator row:
 
 | Left | Centered | Right |
 |:-----|:--------:|------:|
-| a | b | c |
-| longer cell | longer cell | longer cell |
+| Hank Aaron | Right-fielder | .305 |
+| Babe Ruth | Outfielder | .342 |
+| Mookie Wilson | Center-fielder | .274 |
+
+And a plain reference table:
+
+| Element | Token | Shows up in |
+|---------|-------|-------------|
+| Body text | `--text` | Paragraphs, lists |
+| Links | `--link` | Anchors |
+| Rules | `--rule` | `<hr>` and blockquote borders |
+| Code | `--code-bg` | `<pre>` and `<code>` |
 
 ### Links and images
 

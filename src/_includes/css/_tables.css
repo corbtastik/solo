@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Tables, styled after yolo-11ty.
+
+   Solo draws a grey box with grey rules. yolo-11ty fills the header row with
+   its accent and draws every internal rule in that same accent. Here the
+   accent is the `--code-header-*` pair, so a table's header bar matches the
+   bar above a code block — the same relationship yolo-11ty has, where both
+   come from its `--secondary-color`.
+
+   Rounded corners need `border-collapse: separate`; the collapsed model
+   ignores border-radius. `overflow: hidden` clips the header fill to the
+   curve.
+   ========================================================================== */
+
+table {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: left;
+  vertical-align: middle;
+  background-color: var(--bg);
+  border: 1px solid var(--code-header-bg);
+  border-radius: 0.3em;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+/* Solo puts a full border on every cell; the rules below replace it. */
+th,
+td {
+  padding: 0.3em 0.4em;
+  border: 0;
+}
+
+th {
+  font-weight: 700;
+  color: var(--code-header-fg);
+  background-color: var(--code-header-bg);
+}
+
+th:not(:last-child),
+td:not(:last-child) {
+  border-right: 1px solid var(--code-header-bg);
+}
+
+table thead > tr:not(:last-child) > th,
+table thead > tr:not(:last-child) > td,
+table tbody > tr:not(:last-child) > th,
+table tbody > tr:not(:last-child) > td,
+table tfoot > tr:not(:last-child) > th,
+table tfoot > tr:not(:last-child) > td,
+table > tr:not(:last-child) > th,
+table > tr:not(:last-child) > td {
+  border-bottom: 1px solid var(--code-header-bg);
+}
+
+/* Sortable: the script marks headers it has wired up. */
+th[data-sortable] {
+  cursor: pointer;
+  user-select: none;
+}
+
+th[data-sortable]:hover,
+th[data-sortable]:focus-visible {
+  background-color: var(--code-header-hover-bg);
+  color: var(--code-header-hover-fg);
+}
+
+th[aria-sort="ascending"]::after {
+  content: " \2191";
+}
+
+th[aria-sort="descending"]::after {
+  content: " \2193";
+}
