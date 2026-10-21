@@ -464,3 +464,13 @@
   border-radius: 0.360em;
   object-fit: cover;
 }
+
+/* --------------------------------------------------------------------------
+   Hand-written, not generated: the author portrait.
+   -------------------------------------------------------------------------- */
+
+.avatar {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+}

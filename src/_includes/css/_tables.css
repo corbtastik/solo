@@ -26,11 +26,9 @@ table {
   overflow: hidden;
 }
 
-/* Solo puts a full border on every cell; the rules below replace it. */
 th,
 td {
   padding: 0.3em 0.4em;
-  border: 0;
 }
 
 th {
@@ -73,4 +71,12 @@ th[aria-sort="ascending"]::after {
 
 th[aria-sort="descending"]::after {
   content: " \2193";
+}
+
+/* A cell holding a long unbroken token (a CSS custom property name, a URL)
+   pushed the whole page sideways on very narrow screens. No visual effect
+   until a cell actually has nowhere left to break. */
+td,
+th {
+  overflow-wrap: anywhere;
 }

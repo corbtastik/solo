@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Markdown features Solo's stylesheet never met, because kramdown and
+   markdown-it differ on what they emit: task lists and footnotes.
+
+   Definition lists need nothing — Solo already styles `dl` and `dd`.
+   ========================================================================== */
+
+.contains-task-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.task-list-item-checkbox {
+  margin: 0 0.4rem 0 0;
+}
+
+.footnotes {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.footnotes-sep {
+  margin-top: 2.5rem;
+}
+
+.footnote-backref {
+  text-decoration: none;
+}

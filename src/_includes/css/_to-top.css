@@ -17,7 +17,7 @@
   transition: color 0.25s ease;
 }
 
-/* Solo underlines every a:hover; this one should not pick that up. */
+/* It is a control, not a link, so no underline. */
 .to-top:hover,
 .to-top:focus-visible {
   color: var(--code-header-hover-bg);

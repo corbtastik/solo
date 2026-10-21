@@ -38,15 +38,19 @@ src/
 │   ├── table-sort.njk        click-a-header-to-sort for tables
 │   ├── image-grid.njk        click-to-enlarge for image grids
 │   └── css/
-│       ├── _normalize.css    normalize.css v2.1.3, verbatim from Solo
-│       ├── _solo.css         line-for-line port of _sass/_solo.scss
-│       ├── _syntax.css       port of _sass/_syntax.scss + Prism mapping
-│       ├── _theme-switcher.css
-│       ├── _code-header.css  the bar above fenced code blocks
-│       ├── _images.css       size and aspect-ratio classes
-│       ├── _tables.css       yolo-11ty table styling
-│       ├── _to-top.css       the back-to-top control
-│       └── _custom.css       your own styles / overrides
+│       ├── _normalize.css        normalize.css v2.1.3, verbatim from Solo
+│       ├── _solo.css             _sass/_solo.scss, near line-for-line
+│       ├── _syntax.css           _sass/_syntax.scss + Prism mapping
+│       ├── _site-header.css      the title row and its logo
+│       ├── _theme-switcher.css   the two controls and their menu
+│       ├── _to-top.css           the back-to-top control
+│       ├── _code-header.css      the bar above fenced code blocks
+│       ├── _tables.css           yolo-11ty table styling
+│       ├── _images.css           size and aspect-ratio classes
+│       ├── _image-grid.css       the grid and its expanded view
+│       ├── _video.css            video embeds
+│       ├── _markdown-extras.css  task lists and footnotes
+│       └── _custom.css           your own styles (ships empty)
 ├── css/main.njk              assembles the above into /css/main.css
 └── static/                   copied to the site root as-is
 ```
@@ -280,10 +284,12 @@ Four deliberate differences from the Jekyll original:
   `_syntax.css` maps Prism's token names onto Solo's original Pygments palette,
   so the output is pixel-identical. Rouge class names still work for
   pre-highlighted HTML.
-* Solo sets `text-transform: uppercase` on h3 through h6. `_custom.css` turns
-  it back off so headings read as written, which is the one place the rendered
-  page departs from the original on purpose. `_solo.css` still carries the
-  original rule, so it diffs cleanly against `_sass/_solo.scss`.
+* Four rules were removed from `_solo.css` rather than overridden elsewhere:
+  the `text-transform: uppercase` on h3-h6 (headings now read as written), the
+  `.container` scope on the two image rules (so a single class can override
+  them without a specificity trick), and the grey-box `table` / `td, th` rules
+  that `_tables.css` replaces wholesale. Everything else in that file is Solo's
+  own, unchanged.
 * The controls use [Material Icons](https://fonts.google.com/icons) ligatures —
   `dark_mode` / `light_mode` / `palette`, the same set yolo-11ty uses — so
   `main.css` imports that icon font alongside Inconsolata and Montserrat. It is

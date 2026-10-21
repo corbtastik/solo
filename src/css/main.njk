@@ -4,15 +4,22 @@ eleventyExcludeFromCollections: true
 ---
 @import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700|Montserrat:700);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+{# base #}
 {% include "css/_normalize.css" %}
 {{ solo | themeCss | safe }}
 {% include "css/_solo.css" %}
 {% include "css/_syntax.css" %}
+
+{# components #}
+{% include "css/_site-header.css" %}
 {% include "css/_theme-switcher.css" %}
-{% include "css/_code-header.css" %}
-{% include "css/_images.css" %}
-{% include "css/_tables.css" %}
 {% include "css/_to-top.css" %}
+{% include "css/_code-header.css" %}
+{% include "css/_tables.css" %}
+{% include "css/_images.css" %}
 {% include "css/_image-grid.css" %}
 {% include "css/_video.css" %}
+{% include "css/_markdown-extras.css" %}
+
+{# yours, last #}
 {% include "css/_custom.css" %}
