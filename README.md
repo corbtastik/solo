@@ -6,6 +6,8 @@ verified pixel-for-pixel against the original — plus one thing Solo never had:
 **swappable color themes**. 68 of them, in light and dark: Solo's own, plus all
 67 from [yolo-11ty](https://yolo-11ty.web.app/).
 
+### [Demo and documentation →](https://solo-11ty.web.app)
+
 ## Quick start
 
 ```bash
