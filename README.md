@@ -193,7 +193,7 @@ The switcher sits in the upper right and ships hidden, revealed by script — so
 JavaScript-free visit renders exactly what Solo rendered. Setting `theme.switcher: false` does the same
 permanently.
 
-Three deliberate differences from the Jekyll original:
+Four deliberate differences from the Jekyll original:
 
 * Solo's demo page carried a GitHub corner ribbon and a GitHub star button.
   Both are gone, along with the `corner-*` theme tokens that existed only to
@@ -203,6 +203,10 @@ Three deliberate differences from the Jekyll original:
   `_syntax.css` maps Prism's token names onto Solo's original Pygments palette,
   so the output is pixel-identical. Rouge class names still work for
   pre-highlighted HTML.
+* Solo sets `text-transform: uppercase` on h3 through h6. `_custom.css` turns
+  it back off so headings read as written, which is the one place the rendered
+  page departs from the original on purpose. `_solo.css` still carries the
+  original rule, so it diffs cleanly against `_sass/_solo.scss`.
 * The controls use [Material Icons](https://fonts.google.com/icons) ligatures —
   `dark_mode` / `light_mode` / `palette`, the same set yolo-11ty uses — so
   `main.css` imports that icon font alongside Inconsolata and Montserrat. It is

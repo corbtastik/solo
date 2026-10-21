@@ -93,7 +93,7 @@ in every theme.
 ### Headings
 
 `<h1>` is reserved for the site title, so headings on the page start at level 2.
-Level 2 has its own size; levels 3 through 6 share a single uppercase style.
+Level 2 has its own size; levels 3 through 6 share a single style.
 
 #### Heading level 4
 

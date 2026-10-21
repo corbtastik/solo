@@ -95,3 +95,16 @@ td,
 th {
   overflow-wrap: anywhere;
 }
+
+/* --------------------------------------------------------------------------
+   Solo renders h3 through h6 in `text-transform: uppercase`. Turned off here
+   so headings read as they are written. _solo.css keeps the original rule, so
+   it still diffs cleanly against _sass/_solo.scss; this overrides it.
+   -------------------------------------------------------------------------- */
+
+h3,
+h4,
+h5,
+h6 {
+  text-transform: none;
+}
