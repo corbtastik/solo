@@ -1,0 +1,6 @@
+- name: "pet-friends"
+  src: "https://youtube.com/embed/fOXxVtYDRuE?mute=1"
+  description: "Pet Friends 2020, a bad year for people, purfect for pets!"
+- name: "kitty-at-computer"
+  src: "https://youtube.com/embed/yY6LPjCa0So?mute=1"
+  description: "Some kitties chase lasers, this one chases cursors."

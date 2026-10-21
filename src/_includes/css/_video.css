@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Video embeds, after yolo-11ty: a portrait frame with a caption under it.
+
+   yolo-11ty pins the iframe at 300x533. That is 9:16, so setting a width and
+   an aspect-ratio reproduces the same box while letting it shrink inside
+   Solo's column on a narrow screen instead of overflowing.
+   ========================================================================== */
+
+.video-embed {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.video-embed iframe {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;  /* centred, like Solo centres images */
+  border: 0;
+  border-radius: 0.5em;
+}
+
+.video-embed p {
+  margin: 0.5rem 0 0;
+  text-align: center;
+  color: var(--muted);
+}

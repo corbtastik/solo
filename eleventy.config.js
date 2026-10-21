@@ -196,6 +196,27 @@ export default function (eleventyConfig) {
     return html;
   });
 
+
+  /* ---------------------------------------------------------------- *
+   * Video — a port of yolo-11ty's `video` shortcode.
+   * ---------------------------------------------------------------- */
+
+  eleventyConfig.addShortcode("video", function (name) {
+    const videos = (this.ctx && this.ctx[name || "videos"]) || [];
+    return videos
+      .map((video) => {
+        const description = escapeHtml(video.description || "");
+        return (
+          `<div class="video-embed">` +
+          `<iframe src="${escapeHtml(video.src)}" title="${description}"` +
+          ` loading="lazy" allowfullscreen></iframe>` +
+          (description ? `<p>${description}</p>` : "") +
+          `</div>`
+        );
+      })
+      .join("\n");
+  });
+
   /* ---------------------------------------------------------------- *
    * Theme helpers (used by css/main.njk and the switcher include)
    * ---------------------------------------------------------------- */

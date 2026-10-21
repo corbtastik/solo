@@ -26,6 +26,7 @@ src/
 │   ├── site.json             title, description, theme settings (≈ _config.yml)
 │   ├── solo.js               the Solo palette, exact — compiled into main.css
 │   ├── ig-*.yml              image grid galleries (yolo-11ty format)
+│   ├── videos.yml            video embeds
 │   └── palettes.json         the 67 yolo-11ty palettes, 12 colors per mode
 ├── _includes/
 │   ├── layouts/default.njk   ≈ _layouts/default.html
@@ -170,6 +171,26 @@ Two things added on top of yolo-11ty's version: thumbnails and arrows carry
 `tabindex`/`role` so they are reachable by keyboard, and the full-size images
 are lazy — they share a URL with the thumbnail, so by the time one is revealed
 the browser already has it.
+
+## Videos
+
+After [yolo-11ty's](https://yolo-11ty.web.app/#videos). Entries go in
+`src/_data/videos.yml` as `name`, `src` and `description`, where `src` is an
+embed URL — `https://youtube.com/embed/<id>` for YouTube:
+
+```njk
+{% video %}             {# src/_data/videos.yml #}
+{% video "talks" %}     {# any other data file #}
+```
+
+yolo-11ty pins the frame at 300x533. That is 9:16, so this sets a width and an
+`aspect-ratio` instead: the same box at full size, but it shrinks inside the
+column on a narrow screen rather than overflowing. The frame is centred, as
+Solo centres images, and the description sits under it as a caption.
+
+One deliberate difference: yolo-11ty's shortcode does `videos.slice(0, 2)`, so
+only the first two entries ever render. This one renders them all — pass a
+different data file if you want a shorter set.
 
 ## Back to top
 

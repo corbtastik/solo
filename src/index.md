@@ -30,6 +30,7 @@ Solo's layout, type and spacing are untouched. Everything below is new:
 * **More markdown** — definition lists, footnotes, task lists and indented code
   blocks, none of which markdown-it handles on its own.
 * **An image grid** — click a thumbnail to enlarge it in place.
+* **Video embeds**, from a data file.
 * **A back-to-top control** in the bottom right corner.
 
 ## Usage
@@ -406,6 +407,23 @@ the number of columns:
 {% endraw %}
 
 {% imageGrid "ig-camping", 2 %}
+
+## Videos
+
+Embedded video, after [yolo-11ty](https://yolo-11ty.web.app/#videos). Add
+entries to `src/_data/videos.yml` and call the shortcode:
+
+{% raw %}
+```html Shortcode
+{% video %}
+```
+{% endraw %}
+
+{% video %}
+
+Each entry is `name`, `src` and `description`. The `src` is an embed URL — for
+YouTube that is `https://youtube.com/embed/<id>`. Pass a different data file as
+an argument, the way the image grid does: {% raw %}`{% video "talks" %}`{% endraw %}.
 
 ## Author
 
