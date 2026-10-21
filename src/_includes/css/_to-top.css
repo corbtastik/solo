@@ -1,0 +1,36 @@
+/* ==========================================================================
+   Back-to-top control, after yolo-11ty: the `keyboard_double_arrow_up`
+   ligature pinned to the bottom right, in the theme's accent.
+
+   A plain anchor, so it works with JavaScript off, same as yolo-11ty's.
+   ========================================================================== */
+
+.to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 10;
+  display: block;
+  color: var(--code-header-bg);
+  text-decoration: none;
+  user-select: none;
+  transition: color 0.25s ease;
+}
+
+/* Solo underlines every a:hover; this one should not pick that up. */
+.to-top:hover,
+.to-top:focus-visible {
+  color: var(--code-header-hover-bg);
+  text-decoration: none;
+}
+
+.to-top .material-icons {
+  display: block;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top {
+    transition: none;
+  }
+}

@@ -15,6 +15,22 @@ Try the two controls in the upper right corner.
 
 This page itself is built with Solo. It's generated from [this markdown file](https://github.com/corbtastik/solo/blob/main/src/index.md).
 
+## What this port adds
+
+Solo's layout, type and spacing are untouched. Everything below is new:
+
+* **68 color themes**, on two independent axes — a sun/moon that toggles light
+  and dark, and a palette picker. Solo's own colors plus all 67 from
+  [yolo-11ty](https://yolo-11ty.web.app/).
+* **Code block headers** — each fenced block gets a labelled bar you can click
+  to copy the code.
+* **Sortable tables** — an accent-filled header row; click a column to sort it.
+* **Image classes** — squares, circles and four aspect ratios.
+* **A site logo**, round, at the right edge of the header.
+* **More markdown** — definition lists, footnotes, task lists and indented code
+  blocks, none of which markdown-it handles on its own.
+* **A back-to-top control** in the bottom right corner.
+
 ## Usage
 
 You need [Node.js](https://nodejs.org/). Clone the repository, then:

@@ -33,6 +33,7 @@ src/
 │   ├── theme-init.njk        the theme engine; runs before first paint
 │   ├── theme-switcher.njk    the two controls and their menu
 │   ├── code-copy.njk         copy-to-clipboard for code blocks
+│   ├── table-sort.njk        click-a-header-to-sort for tables
 │   └── css/
 │       ├── _normalize.css    normalize.css v2.1.3, verbatim from Solo
 │       ├── _solo.css         line-for-line port of _sass/_solo.scss
@@ -40,6 +41,8 @@ src/
 │       ├── _theme-switcher.css
 │       ├── _code-header.css  the bar above fenced code blocks
 │       ├── _images.css       size and aspect-ratio classes
+│       ├── _tables.css       yolo-11ty table styling
+│       ├── _to-top.css       the back-to-top control
 │       └── _custom.css       your own styles / overrides
 ├── css/main.njk              assembles the above into /css/main.css
 └── static/                   copied to the site root as-is
@@ -140,6 +143,13 @@ Two small departures from yolo-11ty: the bar is a real `<button>` rather than a
 clickable `<div>`, so it is keyboard-reachable; and it highlights on
 `:focus-visible` rather than `:focus`, so it does not stay inverted after a
 mouse click.
+
+## Back to top
+
+A `keyboard_double_arrow_up` control sits in the bottom right, in the theme's
+accent, as on [yolo-11ty](https://yolo-11ty.web.app/). It is a plain
+`<a href="#">`, so it works with JavaScript off. Like yolo-11ty's, it is always
+visible rather than fading in once you have scrolled.
 
 ## Tables
 
