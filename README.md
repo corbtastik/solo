@@ -39,6 +39,7 @@ src/
 │       ├── _syntax.css       port of _sass/_syntax.scss + Prism mapping
 │       ├── _theme-switcher.css
 │       ├── _code-header.css  the bar above fenced code blocks
+│       ├── _images.css       size and aspect-ratio classes
 │       └── _custom.css       your own styles / overrides
 ├── css/main.njk              assembles the above into /css/main.css
 └── static/                   copied to the site root as-is
@@ -139,6 +140,38 @@ Two small departures from yolo-11ty: the bar is a real `<button>` rather than a
 clickable `<div>`, so it is keyboard-reachable; and it highlights on
 `:focus-visible` rather than `:focus`, so it does not stay inverted after a
 mouse click.
+
+## Images
+
+Markdown images need nothing: Solo's own `.container img` centers them and caps
+them at the column width.
+
+For sizes and aspect ratios there are utility classes lifted from
+[yolo-11ty](https://yolo-11ty.web.app/#styled-images). Markdown's `![]()` has
+nowhere to put a class, so use a raw `<img>`:
+
+```html
+<img class="is-circle-256" src="photo.jpg" alt="A photo">
+```
+
+| Class | What it does |
+|-------|--------------|
+| `thumbnail` | 128px square |
+| `is-16` … `is-512` | squares, 12 steps |
+| `is-circle-16` … `is-circle-512` | the same, round |
+| `is-100-by-75` … `is-640-by-480` | 4:3 |
+| `is-75-by-100` … `is-480-by-640` | 3:4 |
+| `is-112-by-63` … `is-640-by-360` | 16:9 |
+| `is-63-by-112` … `is-360-by-640` | 9:16 |
+
+73 classes in all, generated into `_images.css`. Each sets a width and an
+`aspect-ratio`, with `object-fit: cover` so the photo is cropped to fill rather
+than squashed, and a `width / 1000` em corner radius — yolo-11ty's curve.
+
+One difference: yolo-11ty pins both width *and* height on the square classes.
+These set width and `aspect-ratio` instead, so when Solo's 30rem column is
+narrower than the image, `max-width: 100%` shrinks the box without flattening
+it — `is-512` stays square at 343px on a phone rather than becoming 343x512.
 
 ## Fidelity to the original
 

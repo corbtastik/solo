@@ -1,0 +1,466 @@
+/* ==========================================================================
+   Styled images — the size and ratio classes from yolo-11ty.
+
+     .thumbnail          128px square
+     .is-16 … .is-512    squares
+     .is-circle-16 …     circles
+     .is-100-by-75 …     4:3, 3:4, 16:9 and 9:16 boxes
+
+   `object-fit: cover` crops rather than distorts, and the border radius is
+   width/1000 em, the same curve yolo-11ty uses.
+
+   One difference: yolo-11ty pins both width and height on the square classes.
+   These set width and `aspect-ratio` instead, so when Solo's 30rem column is
+   narrower than the image, `.container img { max-width: 100% }` shrinks the
+   box without flattening it.
+   ========================================================================== */
+
+.thumbnail {
+  width: 128px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.128em;
+  object-fit: cover;
+}
+/* Squares */
+.is-16 {
+  width: 16px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.016em;
+  object-fit: cover;
+}
+.is-24 {
+  width: 24px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.024em;
+  object-fit: cover;
+}
+.is-32 {
+  width: 32px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.032em;
+  object-fit: cover;
+}
+.is-48 {
+  width: 48px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.048em;
+  object-fit: cover;
+}
+.is-64 {
+  width: 64px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.064em;
+  object-fit: cover;
+}
+.is-96 {
+  width: 96px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.096em;
+  object-fit: cover;
+}
+.is-128 {
+  width: 128px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.128em;
+  object-fit: cover;
+}
+.is-192 {
+  width: 192px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.192em;
+  object-fit: cover;
+}
+.is-256 {
+  width: 256px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.256em;
+  object-fit: cover;
+}
+.is-384 {
+  width: 384px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.384em;
+  object-fit: cover;
+}
+.is-448 {
+  width: 448px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.448em;
+  object-fit: cover;
+}
+.is-512 {
+  width: 512px;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.512em;
+  object-fit: cover;
+}
+
+/* Circles */
+.is-circle-16 {
+  width: 16px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-24 {
+  width: 24px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-32 {
+  width: 32px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-48 {
+  width: 48px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-64 {
+  width: 64px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-96 {
+  width: 96px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-128 {
+  width: 128px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-192 {
+  width: 192px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-256 {
+  width: 256px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-384 {
+  width: 384px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-448 {
+  width: 448px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.is-circle-512 {
+  width: 512px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* 4:3 */
+.is-100-by-75 {
+  width: 100px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.100em;
+  object-fit: cover;
+}
+.is-120-by-90 {
+  width: 120px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.120em;
+  object-fit: cover;
+}
+.is-128-by-96 {
+  width: 128px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.128em;
+  object-fit: cover;
+}
+.is-160-by-120 {
+  width: 160px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.160em;
+  object-fit: cover;
+}
+.is-200-by-150 {
+  width: 200px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.200em;
+  object-fit: cover;
+}
+.is-240-by-180 {
+  width: 240px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.240em;
+  object-fit: cover;
+}
+.is-256-by-192 {
+  width: 256px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.256em;
+  object-fit: cover;
+}
+.is-320-by-240 {
+  width: 320px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.320em;
+  object-fit: cover;
+}
+.is-400-by-300 {
+  width: 400px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.400em;
+  object-fit: cover;
+}
+.is-480-by-360 {
+  width: 480px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.480em;
+  object-fit: cover;
+}
+.is-512-by-384 {
+  width: 512px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.512em;
+  object-fit: cover;
+}
+.is-640-by-480 {
+  width: 640px;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.640em;
+  object-fit: cover;
+}
+
+/* 3:4 */
+.is-75-by-100 {
+  width: 75px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.075em;
+  object-fit: cover;
+}
+.is-90-by-120 {
+  width: 90px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.090em;
+  object-fit: cover;
+}
+.is-96-by-128 {
+  width: 96px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.096em;
+  object-fit: cover;
+}
+.is-120-by-160 {
+  width: 120px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.120em;
+  object-fit: cover;
+}
+.is-150-by-200 {
+  width: 150px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.150em;
+  object-fit: cover;
+}
+.is-180-by-240 {
+  width: 180px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.180em;
+  object-fit: cover;
+}
+.is-192-by-256 {
+  width: 192px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.192em;
+  object-fit: cover;
+}
+.is-240-by-320 {
+  width: 240px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.240em;
+  object-fit: cover;
+}
+.is-300-by-400 {
+  width: 300px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.300em;
+  object-fit: cover;
+}
+.is-360-by-480 {
+  width: 360px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.360em;
+  object-fit: cover;
+}
+.is-384-by-512 {
+  width: 384px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.384em;
+  object-fit: cover;
+}
+.is-480-by-640 {
+  width: 480px;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.480em;
+  object-fit: cover;
+}
+
+/* 16:9 */
+.is-112-by-63 {
+  width: 112px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.112em;
+  object-fit: cover;
+}
+.is-128-by-72 {
+  width: 128px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.128em;
+  object-fit: cover;
+}
+.is-144-by-81 {
+  width: 144px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.144em;
+  object-fit: cover;
+}
+.is-160-by-90 {
+  width: 160px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.160em;
+  object-fit: cover;
+}
+.is-192-by-108 {
+  width: 192px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.192em;
+  object-fit: cover;
+}
+.is-224-by-126 {
+  width: 224px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.224em;
+  object-fit: cover;
+}
+.is-256-by-144 {
+  width: 256px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.256em;
+  object-fit: cover;
+}
+.is-320-by-180 {
+  width: 320px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.320em;
+  object-fit: cover;
+}
+.is-400-by-225 {
+  width: 400px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.400em;
+  object-fit: cover;
+}
+.is-480-by-270 {
+  width: 480px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.480em;
+  object-fit: cover;
+}
+.is-512-by-288 {
+  width: 512px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.512em;
+  object-fit: cover;
+}
+.is-640-by-360 {
+  width: 640px;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.640em;
+  object-fit: cover;
+}
+
+/* 9:16 */
+.is-63-by-112 {
+  width: 63px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.063em;
+  object-fit: cover;
+}
+.is-72-by-128 {
+  width: 72px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.072em;
+  object-fit: cover;
+}
+.is-81-by-144 {
+  width: 81px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.081em;
+  object-fit: cover;
+}
+.is-90-by-160 {
+  width: 90px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.090em;
+  object-fit: cover;
+}
+.is-108-by-192 {
+  width: 108px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.108em;
+  object-fit: cover;
+}
+.is-126-by-224 {
+  width: 126px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.126em;
+  object-fit: cover;
+}
+.is-144-by-256 {
+  width: 144px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.144em;
+  object-fit: cover;
+}
+.is-180-by-320 {
+  width: 180px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.180em;
+  object-fit: cover;
+}
+.is-225-by-400 {
+  width: 225px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.225em;
+  object-fit: cover;
+}
+.is-270-by-480 {
+  width: 270px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.270em;
+  object-fit: cover;
+}
+.is-288-by-512 {
+  width: 288px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.288em;
+  object-fit: cover;
+}
+.is-360-by-640 {
+  width: 360px;
+  aspect-ratio: 9 / 16;
+  border-radius: 0.360em;
+  object-fit: cover;
+}

@@ -275,6 +275,73 @@ Raw HTML passes straight through, so <kbd>⌘</kbd> + <kbd>K</kbd>, <mark>marked
 text</mark>, H<sub>2</sub>O, 2<sup>10</sup>, and <abbr title="Cascading Style
 Sheets">CSS</abbr> all work.
 
+## Markdown images
+
+Standard markdown images use the default `<img>` styling. In Solo that means
+`.container img` centers them and caps them at the column width, so a photo of
+any size drops in without overflowing:
+
+```markdown Markdown
+![BIG yawn Bucky](big-tongue-bucky.jpg "Sleepy Bucky")
+```
+
+![BIG yawn Bucky](https://storage.googleapis.com/corbs-foto/broken-bow-we-go/big-tongue-bucky.jpg "Sleepy Bucky")
+
+## Styled images
+
+For anything more deliberate there are size and ratio classes, the same set
+[yolo-11ty](https://yolo-11ty.web.app/#styled-images) uses. Markdown's `![]()`
+has nowhere to put a class, so reach for a raw `<img>`:
+
+```html HTML
+<img class="is-256" src="bluebonnet.jpg" alt="Bluebonnet">
+```
+
+Each class sets a width and an aspect ratio, and `object-fit: cover` crops the
+photo to fill the box rather than squashing it.
+
+### Thumbnail
+
+128px square. Use the `thumbnail` class.
+
+<img class="thumbnail" src="https://storage.googleapis.com/corbs-foto/broken-bow-we-go/big-tongue-bucky.jpg" alt="Bucky" loading="lazy">
+
+### Square
+
+Classes: `is-16` through `is-512`.
+
+<img class="is-256" src="https://storage.googleapis.com/corbs-foto/bigd/granada-theater-greenville-1150.jpg" alt="The Granada Theater" loading="lazy">
+
+### Circle
+
+Classes: `is-circle-16` through `is-circle-512`.
+
+<img class="is-circle-256" src="https://storage.googleapis.com/corbs-foto/broken-bow-we-go/big-tongue-bucky.jpg" alt="Bucky" loading="lazy">
+
+### 4:3 ratio
+
+Classes: `is-100-by-75` through `is-640-by-480`.
+
+<img class="is-256-by-192" src="https://storage.googleapis.com/corbs-foto/flowerhood/bluebonnet.jpg" alt="Bluebonnet" loading="lazy">
+
+### 3:4 ratio
+
+Classes: `is-75-by-100` through `is-480-by-640`.
+
+<img class="is-240-by-320" src="https://storage.googleapis.com/corbs-foto/flowerhood/bluebonnet.jpg" alt="Bluebonnet" loading="lazy">
+
+### 16:9 ratio
+
+Classes: `is-112-by-63` through `is-640-by-360`.
+
+<img class="is-256-by-144" src="https://storage.googleapis.com/corbs-foto/flowerhood/bluebonnet.jpg" alt="Bluebonnet" loading="lazy">
+
+### 9:16 ratio
+
+Classes: `is-63-by-112` through `is-360-by-640`.
+
+<img class="is-225-by-400" src="https://storage.googleapis.com/corbs-foto/flowerhood/bluebonnet.jpg" alt="Bluebonnet" loading="lazy">
+
 ## Author
 
 This Eleventy port is by [corbtastik](https://github.com/corbtastik).
