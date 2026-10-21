@@ -401,11 +401,11 @@ the number of columns:
 
 {% raw %}
 ```html Custom data
-{% imageGrid "ig-pets", 2 %}
+{% imageGrid "ig-camping", 2 %}
 ```
 {% endraw %}
 
-{% imageGrid "ig-pets", 2 %}
+{% imageGrid "ig-camping", 2 %}
 
 ## Author
 
