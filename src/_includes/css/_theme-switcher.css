@@ -67,6 +67,8 @@
   list-style: none;
   background-color: var(--ui-bg);
   border: 1px solid var(--ui-border);
+  /* Same 0.3em curve the code headers and tables use. */
+  border-radius: 0.3em;
 }
 
 .theme-switcher-menu .theme-switcher-group {
