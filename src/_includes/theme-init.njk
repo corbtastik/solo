@@ -1,0 +1,210 @@
+{#
+  Runs before first paint so there is no flash of the wrong colors.
+
+  Two independent axes, the same split yolo-11ty uses:
+    mode    - light or dark; absent means follow the operating system
+    palette - "solo" (compiled into main.css) or any id from palettes.json,
+              applied here as custom properties on <html>
+
+  Exposes window.SoloTheme so the switcher at the end of <body> can drive it.
+#}
+<script>
+window.SoloTheme = (function () {
+  "use strict";
+
+  var MODE_KEY = "solo-mode";
+  var PALETTE_KEY = "solo-palette";
+  var DEFAULT_MODE = "{{ site.theme.mode }}";
+  var DEFAULT_PALETTE = "{{ site.theme.default }}";
+
+  var PALETTES = {{ palettes | paletteJson | safe }};
+
+  var root = document.documentElement;
+  var darkQuery = window.matchMedia
+    ? window.matchMedia("(prefers-color-scheme: dark)")
+    : null;
+  var applied = [];
+
+  function store(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) {}
+  }
+
+  function read(key, fallback) {
+    try { return localStorage.getItem(key) || fallback; } catch (e) { return fallback; }
+  }
+
+  /* ---- color helpers ------------------------------------------------ */
+
+  function parseHex(hex) {
+    var h = hex.replace("#", "");
+    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    return [
+      parseInt(h.slice(0, 2), 16),
+      parseInt(h.slice(2, 4), 16),
+      parseInt(h.slice(4, 6), 16)
+    ];
+  }
+
+  function toHex(rgb) {
+    return "#" + rgb.map(function (v) {
+      var s = Math.max(0, Math.min(255, Math.round(v))).toString(16);
+      return s.length === 1 ? "0" + s : s;
+    }).join("");
+  }
+
+  /** Near-white or near-black, whichever reads on `hex`. */
+  function onColor(hex) {
+    var c = parseHex(hex).map(function (v) {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    var luminance = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+    /* 0.179 is where white and black contrast equally against a color, so
+       this always picks the more readable of the two. */
+    return luminance > 0.179 ? "#111" : "#fff";
+  }
+
+  /** `weight` is how much of `a` survives the mix. */
+  function mix(a, b, weight) {
+    var x = parseHex(a), y = parseHex(b);
+    return toHex([
+      x[0] * weight + y[0] * (1 - weight),
+      x[1] * weight + y[1] * (1 - weight),
+      x[2] * weight + y[2] * (1 - weight)
+    ]);
+  }
+
+  /* ---- palette expansion -------------------------------------------- */
+
+  /**
+   * A palettes.json entry carries 12 colors. Solo's stylesheet wants 49.
+   * This widens one into the other; the names must match src/_data/solo.js.
+   */
+  function expand(p) {
+    var muted = mix(p.text, p.bg, 0.75);
+    return {
+      "bg": p.bg,
+      "text": p.text,
+      "heading": p.heading,
+      "link": p.link,
+      "muted": muted,
+      "rule": p.border,
+      "code-bg": p.surface,
+
+      "code-header-bg": p.link,
+      "code-header-fg": onColor(p.link),
+      "code-header-hover-bg": p.primary,
+      "code-header-hover-fg": onColor(p.primary),
+
+      "ui-bg": p.surface,
+      "ui-fg": p.text,
+      "ui-border": p.border,
+      "ui-hover-bg": mix(p.text, p.surface, 0.1),
+
+      "syn-hll-bg": mix(p.primary, p.bg, 0.2),
+      "syn-comment": p.shComment,
+      "syn-comment-multi": p.shComment,
+      "syn-comment-preproc": p.shComment,
+      "syn-err": p.shKeyword,
+      "syn-err-bg": mix(p.shKeyword, p.bg, 0.2),
+      "syn-keyword": p.shKeyword,
+      "syn-keyword-type": p.shKeyword,
+      "syn-operator": mix(p.text, p.bg, 0.8),
+      "syn-operator-word": p.text,
+      "syn-number": p.shVariable,
+      "syn-string": p.shString,
+      "syn-string-literal": p.shString,
+      "syn-string-interpol": p.shString,
+      "syn-string-regex": p.shString,
+      "syn-string-symbol": p.shString,
+      "syn-name-attr": p.shVariable,
+      "syn-name-builtin": p.shFunction,
+      "syn-name-class": p.shFunction,
+      "syn-name-const": p.shVariable,
+      "syn-name-decorator": p.shFunction,
+      "syn-name-entity": p.shComment,
+      "syn-name-exception": p.shKeyword,
+      "syn-name-function": p.shFunction,
+      "syn-name-label": p.shVariable,
+      "syn-name-namespace": p.shFunction,
+      "syn-name-tag": p.shKeyword,
+      "syn-name-variable": p.shVariable,
+      "syn-whitespace": mix(p.text, p.bg, 0.3),
+      "syn-generic-deleted-bg": mix(p.shKeyword, p.bg, 0.15),
+      "syn-generic-deleted-border": p.shKeyword,
+      "syn-generic-inserted-bg": mix(p.shString, p.bg, 0.15),
+      "syn-generic-inserted-border": p.shString,
+      "syn-generic-error": p.shKeyword,
+      "syn-generic-heading": p.heading,
+      "syn-generic-output": muted,
+      "syn-generic-prompt": p.primary,
+      "syn-generic-traceback": p.shFunction
+    };
+  }
+
+  /* ---- state --------------------------------------------------------- */
+
+  function mode() {
+    var attr = root.getAttribute("data-mode");
+    if (attr === "light" || attr === "dark") return attr;
+    return darkQuery && darkQuery.matches ? "dark" : "light";
+  }
+
+  function palette() {
+    var id = read(PALETTE_KEY, DEFAULT_PALETTE);
+    return PALETTES[id] ? id : "solo";
+  }
+
+  function paint() {
+    /* Drop the previous palette's overrides, revealing main.css again. */
+    for (var i = 0; i < applied.length; i++) {
+      root.style.removeProperty("--" + applied[i]);
+    }
+    applied = [];
+    root.style.removeProperty("color-scheme");
+
+    var entry = PALETTES[palette()];
+    if (!entry) return; /* "solo" — main.css already has it */
+
+    var tokens = expand(entry[mode()]);
+    for (var name in tokens) {
+      if (Object.prototype.hasOwnProperty.call(tokens, name)) {
+        root.style.setProperty("--" + name, tokens[name]);
+        applied.push(name);
+      }
+    }
+    root.style.setProperty("color-scheme", mode());
+  }
+
+  function setMode(next) {
+    root.setAttribute("data-mode", next);
+    store(MODE_KEY, next);
+    paint();
+  }
+
+  function setPalette(id) {
+    store(PALETTE_KEY, PALETTES[id] ? id : "solo");
+    paint();
+  }
+
+  /* ---- boot ---------------------------------------------------------- */
+
+  var storedMode = read(MODE_KEY, DEFAULT_MODE);
+  if (storedMode === "light" || storedMode === "dark") {
+    root.setAttribute("data-mode", storedMode);
+  }
+  paint();
+
+  return {
+    mode: mode,
+    palette: palette,
+    setMode: setMode,
+    setPalette: setPalette,
+    onSystemChange: function (fn) {
+      if (darkQuery && darkQuery.addEventListener) {
+        darkQuery.addEventListener("change", function () { paint(); fn(); });
+      }
+    }
+  };
+})();
+</script>

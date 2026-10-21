@@ -1,0 +1,10 @@
+{
+  "title": "Solo, an Eleventy Theme",
+  "tag_text": "Solo",
+  "description": "Solo is an Eleventy theme that supports single-page websites only, but supports them well. Yes, it's responsive — and now it's themeable.",
+  "theme": {
+    "default": "solo",
+    "mode": "auto",
+    "switcher": true
+  }
+}

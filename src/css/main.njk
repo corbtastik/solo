@@ -1,0 +1,13 @@
+---
+permalink: css/main.css
+eleventyExcludeFromCollections: true
+---
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700|Montserrat:700);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+{% include "css/_normalize.css" %}
+{{ solo | themeCss | safe }}
+{% include "css/_solo.css" %}
+{% include "css/_syntax.css" %}
+{% include "css/_theme-switcher.css" %}
+{% include "css/_code-header.css" %}
+{% include "css/_custom.css" %}

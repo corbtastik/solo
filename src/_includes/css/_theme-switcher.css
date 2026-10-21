@@ -1,0 +1,132 @@
+/* ==========================================================================
+   Theme switcher — the one thing Solo never had.
+
+   Sits in the upper right in `position: fixed`, so the 30rem content column
+   is laid out exactly as it is in the original theme. Two stacked Material
+   Icons buttons, the same set yolo-11ty uses: `dark_mode` / `light_mode`
+   toggles the mode directly and shows the mode you would switch TO, and
+   `palette` opens the palette list.
+
+   It ships hidden and is revealed by script, which means a JavaScript-free
+   visit renders byte-for-byte Solo.
+   ========================================================================== */
+
+.theme-switcher {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.theme-switcher[hidden] {
+  display: none;
+}
+
+.theme-switcher-toggle {
+  display: block;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: var(--ui-fg);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.theme-switcher-toggle:hover,
+.theme-switcher-toggle:focus {
+  color: var(--link);
+}
+
+/* Material Icons sizing convention, as used on yolo-11ty */
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.theme-switcher-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 12rem;
+  max-height: min(60vh, 24rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0.25rem 0 0;
+  padding: 0.5rem 0;
+  list-style: none;
+  background-color: var(--ui-bg);
+  border: 1px solid var(--ui-border);
+}
+
+.theme-switcher-menu .theme-switcher-group {
+  margin: 0;
+  padding: 0.6rem 0.85rem 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.theme-switcher-menu .theme-switcher-group:first-child {
+  padding-top: 0.25rem;
+}
+
+.theme-switcher-menu[hidden] {
+  display: none;
+}
+
+.theme-switcher-menu li {
+  margin: 0;
+  padding: 0;
+}
+
+.theme-switcher-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.3rem 0.85rem;
+  font: inherit;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--ui-fg);
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+
+.theme-switcher-option:hover,
+.theme-switcher-option:focus {
+  background-color: var(--ui-hover-bg);
+}
+
+.theme-switcher-option[aria-pressed="true"] {
+  font-weight: 700;
+}
+
+.theme-swatch {
+  position: relative;
+  flex: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin-right: 0.6rem;
+  border: 1px solid var(--ui-border);
+  border-radius: 50%;
+  background: var(--sw-bg, transparent);
+}
+
+.theme-swatch::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  right: 25%;
+  bottom: 25%;
+  left: 25%;
+  border-radius: 50%;
+  background: var(--sw-link, transparent);
+}

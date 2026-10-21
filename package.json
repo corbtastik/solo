@@ -1,0 +1,21 @@
+{
+  "name": "solo-11ty",
+  "version": "1.0.0",
+  "description": "An Eleventy port of Solo, a Jekyll theme for single-page websites — with themeable colors.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "eleventy --serve",
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.7",
+    "markdown-it-anchor": "^10.0.0",
+    "markdown-it-deflist": "^4.0.0",
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-task-lists": "^2.1.1",
+    "prismjs": "^1.30.0"
+  }
+}

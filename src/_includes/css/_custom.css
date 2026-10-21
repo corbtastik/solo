@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Your own styles.
+
+   Everything above this file is a faithful port of Solo. Put additions and
+   overrides here so the ported stylesheets stay comparable to the original.
+   ========================================================================== */
+
+/* Author portrait — round, centered by Solo's own `.container img` rule. */
+.container img.avatar {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* --------------------------------------------------------------------------
+   Markdown features Solo's stylesheet never met: task lists and footnotes.
+   Definition lists need nothing — Solo already styles `dl` and `dd`.
+   -------------------------------------------------------------------------- */
+
+.contains-task-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.task-list-item-checkbox {
+  margin: 0 0.4rem 0 0;
+}
+
+.footnotes {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.footnotes-sep {
+  margin-top: 2.5rem;
+}
+
+.footnote-backref {
+  text-decoration: none;
+}

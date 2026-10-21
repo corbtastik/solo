@@ -1,0 +1,47 @@
+{#
+  Copy-to-clipboard for code blocks, the same interaction yolo-11ty has:
+  the whole header is the button, and it reports back for two seconds.
+#}
+  <script>
+  (function () {
+    "use strict";
+
+    var COPIED_MS = 2000;
+
+    function flash(header, message) {
+      if (header.classList.contains("copied")) return;
+      var label = header.querySelector(".code-label");
+      var original = label.textContent;
+      header.classList.add("copied");
+      label.textContent = message;
+      setTimeout(function () {
+        label.textContent = original;
+        header.classList.remove("copied");
+      }, COPIED_MS);
+    }
+
+    var headers = document.querySelectorAll(".code-header");
+    for (var i = 0; i < headers.length; i++) {
+      (function (header) {
+        /* Walk to the adjacent block rather than pairing by index: one header
+           without a block would shift every later pair. */
+        var block = header.nextElementSibling;
+        if (!block || !block.classList.contains("highlighter-rouge")) return;
+        var code = block.querySelector("code");
+        if (!code) return;
+
+        header.addEventListener("click", function () {
+          var text = code.textContent;
+          if (!navigator.clipboard) {
+            flash(header, "copy unsupported");
+            return;
+          }
+          navigator.clipboard.writeText(text).then(
+            function () { flash(header, "copied!"); },
+            function () { flash(header, "copy failed"); }
+          );
+        });
+      })(headers[i]);
+    }
+  })();
+  </script>

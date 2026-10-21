@@ -1,0 +1,107 @@
+  <div class="theme-switcher" id="theme-switcher" hidden>
+    <button type="button" class="theme-switcher-toggle" id="mode-toggle" aria-label="Toggle light and dark" title="Toggle light and dark"><span class="material-icons md-36" id="mode-icon" aria-hidden="true">dark_mode</span></button>
+    <button type="button" class="theme-switcher-toggle" id="palette-toggle" aria-expanded="false" aria-controls="theme-switcher-menu" aria-label="Color theme" title="Color theme"><span class="material-icons md-36" aria-hidden="true">palette</span></button>
+    <ul class="theme-switcher-menu" id="theme-switcher-menu" hidden>
+      <li>
+        <button type="button" class="theme-switcher-option" data-palette="solo" aria-pressed="false" data-light="{{ solo.light.bg }}|{{ solo.light.link }}" data-dark="{{ solo.dark.bg }}|{{ solo.dark.link }}">
+          <span class="theme-swatch"></span>Solo
+        </button>
+      </li>
+      {%- for group in palettes.groups %}
+      <li class="theme-switcher-group">{{ group.label }}</li>
+      {%- for entry in group.themes %}
+      <li>
+        <button type="button" class="theme-switcher-option" data-palette="{{ entry.id }}" aria-pressed="false" data-light="{{ entry.light.bg }}|{{ entry.light.link }}" data-dark="{{ entry.dark.bg }}|{{ entry.dark.link }}">
+          <span class="theme-swatch"></span>{{ entry.name }}
+        </button>
+      </li>
+      {%- endfor %}
+      {%- endfor %}
+    </ul>
+  </div>
+  <script>
+  (function () {
+    "use strict";
+
+    var theme = window.SoloTheme;
+    var wrap = document.getElementById("theme-switcher");
+    var modeToggle = document.getElementById("mode-toggle");
+    var modeIcon = document.getElementById("mode-icon");
+    var paletteToggle = document.getElementById("palette-toggle");
+    var menu = document.getElementById("theme-switcher-menu");
+    var options = menu.querySelectorAll("[data-palette]");
+
+    /* Same convention as yolo-11ty: the icon shows the mode you would
+       switch TO, not the one you are looking at. */
+    function syncIcon() {
+      modeIcon.textContent =
+        theme.mode() === "dark" ? "light_mode" : "dark_mode";
+    }
+
+    /* Swatches preview each palette in whichever mode is on screen. */
+    function syncSwatches() {
+      var key = theme.mode() === "dark" ? "data-dark" : "data-light";
+      var active = theme.palette();
+      for (var i = 0; i < options.length; i++) {
+        var option = options[i];
+        var pair = (option.getAttribute(key) || "").split("|");
+        var swatch = option.firstElementChild;
+        swatch.style.setProperty("--sw-bg", pair[0] || "transparent");
+        swatch.style.setProperty("--sw-link", pair[1] || "transparent");
+        option.setAttribute(
+          "aria-pressed",
+          option.getAttribute("data-palette") === active ? "true" : "false"
+        );
+      }
+    }
+
+    function sync() {
+      syncIcon();
+      syncSwatches();
+    }
+
+    function setOpen(state) {
+      menu.hidden = !state;
+      paletteToggle.setAttribute("aria-expanded", state ? "true" : "false");
+      if (state) {
+        var current = menu.querySelector('[aria-pressed="true"]');
+        if (current) current.scrollIntoView({ block: "nearest" });
+      }
+    }
+
+    sync();
+    wrap.hidden = false;
+    theme.onSystemChange(sync);
+
+    modeToggle.addEventListener("click", function (event) {
+      event.stopPropagation();
+      theme.setMode(theme.mode() === "dark" ? "light" : "dark");
+      sync();
+    });
+
+    paletteToggle.addEventListener("click", function (event) {
+      event.stopPropagation();
+      setOpen(menu.hidden);
+    });
+
+    for (var i = 0; i < options.length; i++) {
+      options[i].addEventListener("click", function () {
+        theme.setPalette(this.getAttribute("data-palette"));
+        sync();
+        setOpen(false);
+        paletteToggle.focus();
+      });
+    }
+
+    document.addEventListener("click", function (event) {
+      if (!wrap.contains(event.target)) setOpen(false);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !menu.hidden) {
+        setOpen(false);
+        paletteToggle.focus();
+      }
+    });
+  })();
+  </script>

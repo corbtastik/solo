@@ -1,0 +1,120 @@
+/* ==========================================================================
+   Syntax highlighting — port of the original `_sass/_syntax.scss`.
+   The Pygments/Rouge class names are kept so that pre-highlighted HTML
+   pasted into a page still renders exactly as it did under Jekyll.
+   ========================================================================== */
+
+.hll { background-color: var(--syn-hll-bg) }
+.c { color: var(--syn-comment); } /* Comment */
+.err { color: var(--syn-err); background-color: var(--syn-err-bg) } /* Error */
+.k { color: var(--syn-keyword); } /* Keyword */
+.o { color: var(--syn-operator) } /* Operator */
+.cm { color: var(--syn-comment-multi); font-style: italic } /* Comment.Multiline */
+.cp { color: var(--syn-comment-preproc) } /* Comment.Preproc */
+.c1 { color: var(--syn-comment); } /* Comment.Single */
+.cs { color: var(--syn-comment); } /* Comment.Special */
+.gd { background-color: var(--syn-generic-deleted-bg); border: 1px solid var(--syn-generic-deleted-border) } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: var(--syn-generic-error) } /* Generic.Error */
+.gh { color: var(--syn-generic-heading); } /* Generic.Heading */
+.gi { background-color: var(--syn-generic-inserted-bg); border: 1px solid var(--syn-generic-inserted-border) } /* Generic.Inserted */
+.go { color: var(--syn-generic-output) } /* Generic.Output */
+.gp { color: var(--syn-generic-prompt); } /* Generic.Prompt */
+.gs { } /* Generic.Strong */
+.gu { color: var(--syn-generic-heading); } /* Generic.Subheading */
+.gt { color: var(--syn-generic-traceback) } /* Generic.Traceback */
+.kc { color: var(--syn-keyword); } /* Keyword.Constant */
+.kd { color: var(--syn-keyword); } /* Keyword.Declaration */
+.kn { color: var(--syn-keyword); } /* Keyword.Namespace */
+.kp { color: var(--syn-keyword) } /* Keyword.Pseudo */
+.kr { color: var(--syn-keyword); } /* Keyword.Reserved */
+.kt { color: var(--syn-keyword-type); } /* Keyword.Type */
+.m { color: var(--syn-number) } /* Literal.Number */
+.s { color: var(--syn-string-literal) } /* Literal.String */
+.na { color: var(--syn-name-attr) } /* Name.Attribute */
+.nb { color: var(--syn-name-builtin) } /* Name.Builtin */
+.nc { color: var(--syn-name-class); } /* Name.Class */
+.no { color: var(--syn-name-const) } /* Name.Constant */
+.nd { color: var(--syn-name-decorator) } /* Name.Decorator */
+.ni { color: var(--syn-name-entity); } /* Name.Entity */
+.ne { color: var(--syn-name-exception); } /* Name.Exception */
+.nf { color: var(--syn-name-function) } /* Name.Function */
+.nl { color: var(--syn-name-label) } /* Name.Label */
+.nn { color: var(--syn-name-namespace); } /* Name.Namespace */
+.nt { color: var(--syn-name-tag); } /* Name.Tag */
+.nv { color: var(--syn-name-variable) } /* Name.Variable */
+.ow { color: var(--syn-operator-word); } /* Operator.Word */
+.w { color: var(--syn-whitespace) } /* Text.Whitespace */
+.mf { color: var(--syn-number) } /* Literal.Number.Float */
+.mh { color: var(--syn-number) } /* Literal.Number.Hex */
+.mi { color: var(--syn-number) } /* Literal.Number.Integer */
+.mo { color: var(--syn-number) } /* Literal.Number.Oct */
+.sb { color: var(--syn-string) } /* Literal.String.Backtick */
+.sc { color: var(--syn-string) } /* Literal.String.Char */
+.sd { color: var(--syn-string); font-style: italic } /* Literal.String.Doc */
+.s2 { color: var(--syn-string) } /* Literal.String.Double */
+.se { color: var(--syn-string); } /* Literal.String.Escape */
+.sh { color: var(--syn-string) } /* Literal.String.Heredoc */
+.si { color: var(--syn-string-interpol) } /* Literal.String.Interpol */
+.sx { color: var(--syn-string) } /* Literal.String.Other */
+.sr { color: var(--syn-string-regex) } /* Literal.String.Regex */
+.s1 { color: var(--syn-string) } /* Literal.String.Single */
+.ss { color: var(--syn-string-symbol) } /* Literal.String.Symbol */
+.bp { color: var(--syn-name-builtin) } /* Name.Builtin.Pseudo */
+.vc { color: var(--syn-name-variable) } /* Name.Variable.Class */
+.vg { color: var(--syn-name-variable) } /* Name.Variable.Global */
+.vi { color: var(--syn-name-variable) } /* Name.Variable.Instance */
+.il { color: var(--syn-number) } /* Literal.Number.Integer.Long */
+
+.css .o,
+.css .o + .nt,
+.css .nt + .nt { color: var(--syn-comment); }
+
+/* --------------------------------------------------------------------------
+   Prism token names mapped onto the very same palette, so fenced code
+   blocks highlighted at build time match the original Rouge output.
+   -------------------------------------------------------------------------- */
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata { color: var(--syn-comment); }
+
+.token.punctuation,
+.token.operator,
+.token.entity,
+.token.url { color: var(--syn-operator); }
+
+.token.tag,
+.token.tag > .token.punctuation,
+.token.selector { color: var(--syn-name-tag); }
+
+.token.attr-name { color: var(--syn-name-attr); }
+.token.property,
+.token.keyword,
+.token.atrule,
+.token.rule { color: var(--syn-keyword); }
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.attr-value > .token.punctuation { color: var(--syn-string); }
+
+.token.number,
+.token.boolean { color: var(--syn-number); }
+
+.token.constant,
+.token.symbol { color: var(--syn-name-const); }
+
+.token.builtin { color: var(--syn-name-builtin); }
+.token.class-name { color: var(--syn-name-class); }
+.token.function { color: var(--syn-name-function); }
+.token.variable { color: var(--syn-name-variable); }
+.token.regex { color: var(--syn-string-regex); }
+.token.inserted { color: var(--syn-generic-inserted-border); }
+.token.deleted { color: var(--syn-name-exception); }
+
+.token.namespace { opacity: .7; }
+.token.important,
+.token.bold { font-weight: bold; }
+.token.italic { font-style: italic; }

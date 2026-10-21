@@ -1,0 +1,51 @@
+/* ==========================================================================
+   Code block header — the bar above a fenced block, after yolo-11ty.
+
+   A bold label on the left, a copy icon floated right, and the whole bar is
+   the button: clicking it copies the block below. Colors come from the
+   theme's `--code-header-*` tokens, which track the link color, so the bar
+   lands close to yolo-11ty's own blue in Solo's palette.
+   ========================================================================== */
+
+.code-header {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.3em 0.4em 0.3em 0.5em;
+  font: inherit;
+  font-size: 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  color: var(--code-header-fg);
+  background-color: var(--code-header-bg);
+  border: 0;
+  border-top-left-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+  overflow: hidden;
+}
+
+.code-header:hover,
+.code-header:focus-visible,
+.code-header.copied {
+  color: var(--code-header-hover-fg);
+  background-color: var(--code-header-hover-bg);
+}
+
+.code-header .code-label {
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.code-header .copy-icon {
+  float: right;
+  vertical-align: middle;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+
+/* The block sits flush under its header. */
+.code-header + .highlighter-rouge pre {
+  margin-top: 0;
+}
