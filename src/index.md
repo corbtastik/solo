@@ -2,33 +2,33 @@
 layout: layouts/default.njk
 ---
 
-[Solo](http://chibicode.github.io/solo) is a Jekyll theme that supports **single-page websites** only, but supports them well. Yes, it's responsive. This is a pixel-for-pixel port of it to [Eleventy](https://www.11ty.dev/) — same layout, same fonts, same elements — plus one thing Solo never had: **color themes**.
+[Solo](http://chibicode.github.io/solo) is a Jekyll theme. It does **single-page websites** only, and it does them well. Yes, it's responsive. This page is a pixel-for-pixel port of Solo to [Eleventy](https://www.11ty.dev/) — same layout, same fonts, same elements — plus one thing Solo never had: **color themes**.
 
 Try the two controls in the upper right corner.
 
 ## Solo is useful if...
 
-* You want to create an "about me" page from a single markdown file and host it under a custom domain name.
-* You want to create a single-page website that's mostly text.
-* You want to share a single markdown file but would like something nicer-looking.
-* You want something like GitHub's [automatic page generator](http://pages.github.com/) for a non-code repository.
+* You want an "about me" page from one markdown file, on your own domain.
+* You want a single-page website that is mostly text.
+* You want to share one markdown file, but nicer looking.
+* You want GitHub's [automatic page generator](http://pages.github.com/) for a repository without code.
 
-This page itself is built with Solo. It's generated from [this markdown file](https://github.com/corbtastik/solo/blob/main/src/index.md).
+This page runs on Solo. It comes from [one markdown file](https://github.com/corbtastik/solo/blob/main/src/index.md).
 
 ## What this port adds
 
-Solo's layout, type and spacing are untouched. Everything below is new:
+The port leaves Solo's layout, type and spacing alone. Everything below is new:
 
-* **68 color themes**, on two independent axes — a sun/moon that toggles light
-  and dark, and a palette picker. Solo's own colors plus all 67 from
+* **68 color themes** on two axes. A sun/moon toggles light and dark. A palette
+  picker sets the colors. Solo's own, plus all 67 from
   [yolo-11ty](https://yolo-11ty.web.app/).
-* **Code block headers** — each fenced block gets a labelled bar you can click
-  to copy the code.
-* **Sortable tables** — an accent-filled header row; click a column to sort it.
+* **Code block headers** — every fenced block gets a labelled bar. Click it to
+  copy the code.
+* **Sortable tables** — an accent header row. Click a column to sort it.
 * **Image classes** — squares, circles and four aspect ratios.
 * **A site logo**, round, at the right edge of the header.
 * **More markdown** — definition lists, footnotes, task lists and indented code
-  blocks, none of which markdown-it handles on its own.
+  blocks. markdown-it handles none of these on its own.
 * **An image grid** — click a thumbnail to enlarge it in place.
 * **Video embeds**, from a data file.
 * **A back-to-top control** in the bottom right corner.
@@ -44,7 +44,7 @@ npm start
 
 Eleventy serves the site at `http://localhost:8080` and rebuilds on save. `npm run build` writes the finished site to `_site`.
 
-**The main file you'll be editing is `src/index.md`**. This becomes the content for the page.
+**You edit `src/index.md`**. It becomes the page.
 
 ### Other Files
 
@@ -57,26 +57,26 @@ Eleventy serves the site at `http://localhost:8080` and rebuilds on save. `npm r
 
 ### Don't use `<h1>` tags
 
-Within `src/index.md`, do not use `<h1>` tags — `<h1>` is reserved for the site title.
+Skip `<h1>` tags in `src/index.md`. The site title owns that level.
 
 ## Color themes
 
-There are two controls in the upper right, and they are independent axes — the
-same split [yolo-11ty](https://yolo-11ty.web.app/) uses:
+Two controls sit in the upper right. They work on separate axes, the same split
+[yolo-11ty](https://yolo-11ty.web.app/) uses:
 
-* The **sun / moon** toggles light and dark directly. It shows the mode you would
-  switch *to*, not the one you are looking at.
-* The **palette** opens 68 color themes: Solo's own, plus all 67 from yolo-11ty,
-  grouped as they are there.
+* The **sun / moon** toggles light and dark. It shows the mode you would switch
+  *to*, not the one on screen.
+* The **palette** opens all 68 themes. Solo's own, plus the 67 from yolo-11ty,
+  in the same groups.
 
-Every palette supplies both a light and a dark rendering, so the two controls
-compose: pick Matrix Green, then toggle to dark, and you get Matrix Green's dark
-variant. Both choices are remembered in `localStorage`.
+Every palette ships a light and a dark rendering, so the two controls compose.
+Pick Matrix Green, then toggle to dark, and you get Matrix Green's dark variant.
+The browser keeps both choices in `localStorage`.
 
-Solo's own palette is the one compiled into `css/main.css`, so it paints before
-a line of JavaScript runs and holds the exact colors of the original Jekyll
-theme. The other 67 live in `src/_data/palettes.json` and are applied as CSS
-custom properties on `<html>`. A palette is twelve colors per mode:
+Solo's own palette compiles into `css/main.css`. It paints before a line of
+JavaScript runs, in the exact colors of the original Jekyll theme. The other 67
+live in `src/_data/palettes.json`, and a script applies them as CSS custom
+properties on `<html>`. Each palette is twelve colors per mode:
 
 ```json
 {
@@ -92,26 +92,26 @@ custom properties on `<html>`. A palette is twelve colors per mode:
 }
 ```
 
-Those twelve are widened to the ~50 custom properties the stylesheet actually
-uses — including the full Pygments/Rouge syntax palette — by `expand()` in
-`src/_includes/theme-init.njk`. Add an entry to any group in `palettes.json` and
-it appears in the menu; delete one and it's gone.
+`expand()` in `src/_includes/theme-init.njk` widens those twelve. It fills the
+~50 custom properties the stylesheet uses, down to the whole Pygments/Rouge
+syntax palette. Add an entry to any group in `palettes.json` and it shows up in
+the menu. Delete one and it's gone.
 
-To ship a different default, set `theme.default` in `src/_data/site.json` to any
-palette `id`, and `theme.mode` to `light`, `dark`, or `auto`. Setting
-`theme.switcher` to `false` drops both controls, which leaves the page
-byte-for-byte identical to Solo.
+For a different default, set `theme.default` in `src/_data/site.json` to any
+palette `id`, and `theme.mode` to `light`, `dark`, or `auto`. Set
+`theme.switcher` to `false` and both controls disappear. The page then matches
+Solo byte for byte.
 
 ## Markdown elements
 
-Everything below is plain markdown, rendered by the theme. It is here as a
-proving ground: switch palettes while you scroll and you can see every element
-in every theme.
+Everything below is plain markdown, and the theme renders it. Treat it as a
+proving ground. Switch palettes while you scroll to see every element in every
+theme.
 
 ### Headings
 
-`<h1>` is reserved for the site title, so headings on the page start at level 2.
-Level 2 has its own size; levels 3 through 6 share a single style.
+The site title owns `<h1>`, so headings on the page start at level 2. Level 2
+has its own size. Levels 3 through 6 share a single style.
 
 #### Heading level 4
 
@@ -124,12 +124,12 @@ Level 2 has its own size; levels 3 through 6 share a single style.
 A plain paragraph, with *emphasis*, **strong emphasis**, ***both at once***,
 ~~strikethrough~~, `inline code`, and a [link](https://www.11ty.dev/).
 
-Typographic replacement is on, the way kramdown had it: "double quotes" and
-'single quotes' curl, an en dash -- and an em dash --- fill in, and an
+Typographic replacement is on, the way kramdown had it. "Double quotes" and
+'single quotes' curl. An en dash -- and an em dash --- fill in. An
 ellipsis... collapses to one character.
 
-Two trailing spaces at the end of a line  
-force a hard break without starting a new paragraph.
+Two trailing spaces end a line  
+and force a hard break, with no new paragraph.
 
 A backslash escapes markdown syntax, so \*this\* keeps its asterisks.
 
@@ -163,8 +163,8 @@ Task lists work too:
 * [x] Add color themes
 * [ ] Write the next page
 
-A loose list — blank lines between items — gets its text wrapped in paragraphs,
-which widens the spacing:
+A loose list puts blank lines between the items. Markdown then wraps each item
+in a paragraph, which widens the spacing:
 
 * The first item, in its own paragraph.
 
@@ -172,7 +172,7 @@ which widens the spacing:
 
 ### Definition lists
 
-Definition lists come from kramdown and Solo styles them, so they are here:
+Definition lists come from kramdown, and Solo styles them, so they are here:
 
 Term
 : The definition. `dd` carries a 1.5rem left margin.
@@ -186,8 +186,8 @@ A second term
 > A blockquote takes the muted text color and a quarter-rem rule in the border
 > color.
 >
-> It can hold more than one paragraph, and the last one loses its bottom margin
-> so the box closes tightly.
+> It can hold more than one paragraph. The last one drops its bottom margin, so
+> the box closes tight.
 
 > Blockquotes nest:
 >
@@ -196,11 +196,11 @@ A second term
 ### Code
 
 Inline `code` sits on the `--code-bg` background. Every fenced block gets a
-header bar, borrowed from [yolo-11ty](https://yolo-11ty.web.app/#more-snippets):
-the label names the language, and clicking anywhere on the bar copies the block.
+header bar, borrowed from [yolo-11ty](https://yolo-11ty.web.app/#more-snippets).
+The label names the language. Click anywhere on the bar to copy the block.
 
-A fence with a language is highlighted at build time, and labelled from the
-language:
+A fence with a language gets highlighted at build time, and takes its label
+from the language:
 
 ```javascript
 const palettes = require("./palettes.json");
@@ -249,10 +249,10 @@ An indented block — four spaces — works the same way:
 
 ### Tables
 
-Styled after [yolo-11ty](https://yolo-11ty.web.app/#tables): the header row is
-filled with the theme's accent — the same one the code block header uses — and
-every internal rule is drawn in it. **Click any column header to sort. Click
-again to reverse.**
+Styled after [yolo-11ty](https://yolo-11ty.web.app/#tables). The header row
+takes the theme's accent, the same one the code block header uses, and every
+internal rule is drawn in it. **Click any column header to sort. Click again to
+reverse.**
 
 | Player | BA | HR |
 |--------|----|----|
@@ -260,8 +260,8 @@ again to reverse.**
 | Babe Ruth | .342 | 714 |
 | Mookie Wilson | .274 | 67 |
 
-Numeric columns sort as numbers, so `67` lands below `714` rather than between
-`.305` and `714`.
+Numeric columns sort as numbers. So `67` lands below `714`, not between `.305`
+and `714`.
 
 Columns take alignment from the separator row:
 
@@ -282,20 +282,20 @@ And a plain reference table:
 
 ### Links and images
 
-An [inline link](https://www.11ty.dev/), a [link with a title](https://www.11ty.dev/ "The Eleventy site"), a bare autolink <https://www.11ty.dev/>, and a [reference link][11ty] defined further down.
+An [inline link](https://www.11ty.dev/), a [link with a title](https://www.11ty.dev/ "The Eleventy site"), a bare autolink <https://www.11ty.dev/>, and a [reference link][11ty] defined below.
 
 [11ty]: https://www.11ty.dev/
 
-Images are centered and capped at the column width by Solo's own `.container img` rule:
+The theme centers images and caps them at the column width:
 
 ![An example image](example.svg)
 
 ### Footnotes
 
 Footnotes are another kramdown feature.[^note] They collect at the bottom of the
-page with a rule above them.[^second]
+page, under a rule.[^second]
 
-[^note]: The note itself, which can hold `code` and [links](https://www.11ty.dev/).
+[^note]: The note itself. It can hold `code` and [links](https://www.11ty.dev/).
 [^second]: A second note, to show how they stack.
 
 ### Horizontal rules
@@ -306,15 +306,15 @@ Three or more hyphens, asterisks, or underscores make a rule:
 
 ### Inline HTML
 
-Raw HTML passes straight through, so <kbd>⌘</kbd> + <kbd>K</kbd>, <mark>marked
+Raw HTML passes straight through. So <kbd>⌘</kbd> + <kbd>K</kbd>, <mark>marked
 text</mark>, H<sub>2</sub>O, 2<sup>10</sup>, and <abbr title="Cascading Style
 Sheets">CSS</abbr> all work.
 
 ## Markdown images
 
-Standard markdown images use the default `<img>` styling. In Solo that means
-`.container img` centers them and caps them at the column width, so a photo of
-any size drops in without overflowing:
+Plain markdown images take the default `<img>` styling. The theme centers them
+and caps them at the column width, so a photo of any size drops in without
+overflowing:
 
 ```markdown Markdown
 ![BIG yawn Bucky](big-tongue-bucky.jpg "Sleepy Bucky")
@@ -324,16 +324,16 @@ any size drops in without overflowing:
 
 ## Styled images
 
-For anything more deliberate there are size and ratio classes, the same set
+For a set size, reach for the size and ratio classes. They are the same set
 [yolo-11ty](https://yolo-11ty.web.app/#styled-images) uses. Markdown's `![]()`
-has nowhere to put a class, so reach for a raw `<img>`:
+has nowhere to put a class, so write a raw `<img>`:
 
 ```html HTML
 <img class="is-256" src="bluebonnet.jpg" alt="Bluebonnet">
 ```
 
-Each class sets a width and an aspect ratio, and `object-fit: cover` crops the
-photo to fill the box rather than squashing it.
+Each class sets a width and an aspect ratio. `object-fit: cover` crops the photo
+to fill the box, so nothing gets squashed.
 
 ### Thumbnail
 
@@ -379,10 +379,10 @@ Classes: `is-63-by-112` through `is-360-by-640`.
 
 ## Image grid
 
-Shows images inline. Click one to enlarge, click again to shrink. Arrows and
-the left/right keys move through the set; Escape closes it. Ported from
-[yolo-11ty](https://yolo-11ty.web.app/#image-grid), down to the data format —
-its `ig-*.yml` files drop straight in.
+The grid shows images inline. Click one to enlarge it, click again to shrink it.
+The arrows and the left and right keys step through the set, and Escape closes
+it. The grid comes from [yolo-11ty](https://yolo-11ty.web.app/#image-grid), down
+to the data format — its `ig-*.yml` files drop straight in.
 
 1. Add images to `src/_data/ig-images.yml`.
 2. Use the `imageGrid` shortcode.
@@ -398,7 +398,7 @@ its `ig-*.yml` files drop straight in.
 ### Custom file and column count
 
 Any file in `src/_data/` with an `ig-` prefix works. The second argument sets
-the number of columns:
+the column count:
 
 {% raw %}
 ```html Custom data
@@ -411,7 +411,7 @@ the number of columns:
 ## Videos
 
 Embedded video, after [yolo-11ty](https://yolo-11ty.web.app/#videos). Add
-entries to `src/_data/videos.yml` and call the shortcode:
+entries to `src/_data/videos.yml`, then call the shortcode:
 
 {% raw %}
 ```html Shortcode
@@ -421,24 +421,24 @@ entries to `src/_data/videos.yml` and call the shortcode:
 
 {% video %}
 
-Each entry is `name`, `src` and `description`. The `src` is an embed URL — for
+Each entry is `name`, `src` and `description`. The `src` is an embed URL. For
 YouTube that is `https://youtube.com/embed/<id>`. Pass a different data file as
 an argument, the way the image grid does: {% raw %}`{% video "talks" %}`{% endraw %}.
 
 ## Author
 
-This Eleventy port is by [corbtastik](https://github.com/corbtastik).
+[corbtastik](https://github.com/corbtastik) built this Eleventy port.
 
 <img class="avatar" src="https://github.com/corbtastik.png?size=400" alt="corbtastik" width="200" height="200">
 
 ## Credits
 
 **[Solo](https://github.com/chibicode/solo) is the original** — a Jekyll theme
-for single-page websites by **[Shu Uesugi](https://github.com/chibicode)**,
-released under the MIT License in 2014. The layout, the 30rem column, the type
-scale, the spacing, the two typefaces and the syntax palette on this page are
-all his work. This project only moves them to a different generator; nothing
-about the design is mine.
+for single-page websites. **[Shu Uesugi](https://github.com/chibicode)** wrote
+it and released it under the MIT License in 2014. The layout, the 30rem column,
+the type scale, the spacing, the two typefaces and the syntax palette on this
+page are all his work. This port only moves them to a different generator.
+None of the design is mine.
 
 | Reference | Link |
 |-----------|------|
@@ -450,9 +450,9 @@ about the design is mine.
 Also carried over or borrowed:
 
 * [normalize.css](https://necolas.github.io/normalize.css/) v2.1.3 (MIT) — shipped with Solo, copied across unchanged.
-* [Inconsolata](https://fonts.google.com/specimen/Inconsolata) and [Montserrat](https://fonts.google.com/specimen/Montserrat) (Open Font License) — Solo's two typefaces, still loaded from Google Fonts.
+* [Inconsolata](https://fonts.google.com/specimen/Inconsolata) and [Montserrat](https://fonts.google.com/specimen/Montserrat) (Open Font License) — Solo's two typefaces. Google Fonts still serves them.
 * The Pygments/Rouge syntax colors from Solo's `_sass/_syntax.scss`, kept to the hex value.
-* [Prism](https://prismjs.com/) (MIT) — does the highlighting that Rouge used to, mapped onto those same colors.
+* [Prism](https://prismjs.com/) (MIT) — does the highlighting Rouge used to do, in those same colors.
 * [Material Icons](https://fonts.google.com/icons) (Apache 2.0) — the sun, moon and palette in the corner.
 * [yolo-11ty](https://github.com/corbtastik/yolo) — 67 of the 68 color palettes.
 
